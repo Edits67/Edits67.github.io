@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0d0a" />
+  <meta name="description" content="GIFBOX — a fast, mobile-friendly GIF library." />
+  <title>GIFBOX</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand" aria-label="GIFBOX home">
+        <span class="brand-mark">&gt;_</span>
+        <span>GIFBOX</span>
+      </div>
+
+      <button id="openDataPanel" class="icon-btn" type="button" aria-label="Open data controls" title="Data controls">
+        <span>+</span>
+      </button>
+    </header>
+
+    <main class="main">
+      <section class="hero">
+        <div class="eyebrow"><span class="status-dot"></span> GIF LIBRARY ONLINE</div>
+        <h1>Find the reaction.<br /><span>Copy the link.</span></h1>
+        <p class="hero-copy">A clean little GIF vault built for taps, searches, and sending chaos.</p>
+
+        <label class="search-box" for="searchInput">
+          <span class="search-icon">⌕</span>
+          <input id="searchInput" type="search" autocomplete="off" placeholder="Search GIFs, tags, vibes..." />
+          <button id="clearSearch" class="clear-btn" type="button" aria-label="Clear search">×</button>
+        </label>
+      </section>
+
+      <section class="toolbar" aria-label="GIF filters">
+        <div id="categoryList" class="category-list"></div>
+        <div class="result-count" id="resultCount">0 GIFs</div>
+      </section>
+
+      <section id="gifGrid" class="gif-grid" aria-live="polite"></section>
+
+      <section id="emptyState" class="empty-state hidden">
+        <div class="empty-symbol">[._.]</div>
+        <h2>No GIFs found</h2>
+        <p>Try another search or load a different JSON list.</p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <span>GIFBOX</span>
+      <span>•</span>
+      <span id="footerStatus">Contact <a href="mailto:owner@mainmail.clive.dedyn.io">owner@mainmail.clive.dedyn.io</a> to suggest GIF's with what tags you want and the name and the file of the gif!</span>
+    </footer>
+  </div>
+
+  <div id="viewer" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close-viewer></div>
+
+    <div class="viewer-panel" role="dialog" aria-modal="true" aria-labelledby="viewerTitle">
+      <button id="closeViewer" class="modal-close" type="button" aria-label="Close GIF viewer">×</button>
+
+      <div class="viewer-media-wrap">
+        <img id="viewerImage" class="viewer-image" alt="" />
+      </div>
+
+      <div class="viewer-info">
+        <div>
+          <div class="mini-label">GIF</div>
+          <h2 id="viewerTitle">Untitled</h2>
+        </div>
+        <div id="viewerTags" class="tag-row"></div>
+      </div>
+
+      <div class="viewer-actions">
+        <button id="copyGifButton" class="primary-action" type="button">
+          <span>⌘</span>
+          <span>Copy GIF Link</span>
+        </button>
+        <a id="openGifButton" class="secondary-action" href="#" target="_blank" rel="noopener noreferrer">
+          Open GIF
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="dataPanel" class="modal hidden" aria-hidden="true">
+    <div class="modal-backdrop" data-close-data></div>
+
+    <div class="data-panel" role="dialog" aria-modal="true" aria-labelledby="dataPanelTitle">
+      <button id="closeDataPanel" class="modal-close" type="button" aria-label="Close data controls">×</button>
+
+      <div class="mini-label">DATA</div>
+      <h2 id="dataPanelTitle">Load a GIF list</h2>
+      <p class="panel-copy">Use a JSON URL, a local .json file, or paste a JSON array directly.</p>
+
+      <div class="input-group">
+        <label for="jsonUrlInput">JSON URL</label>
+        <div class="inline-field">
+          <input id="jsonUrlInput" type="url" placeholder="https://example.com/gifs.json" />
+          <button id="loadUrlButton" class="small-action" type="button">Load</button>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <label for="jsonFileInput">Local JSON</label>
+        <input id="jsonFileInput" type="file" accept=".json,application/json" />
+      </div>
+
+      <div class="input-group">
+        <label for="jsonTextInput">Paste JSON</label>
+        <textarea id="jsonTextInput" rows="7" spellcheck="false" placeholder='[
+  {
+    "name": "Cat Vibing",
+    "url": "https://example.com/cat.gif",
+    "tags": ["cat", "funny"]
+  }
+]'></textarea>
+        <button id="loadTextButton" class="small-action full" type="button">Use Pasted JSON</button>
+      </div>
+
+      <div class="data-note">
+        <span class="note-mark">!</span>
+        <span>Remote JSON must allow browser requests (CORS). Local files work with the file picker.</span>
+      </div>
+
+      <div id="dataMessage" class="data-message" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <span class="toast-check">✓</span>
+    <span id="toastText">Copied Link for the GIF!</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
