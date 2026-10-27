@@ -143,7 +143,7 @@ button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px s
 .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #4ac590; box-shadow: 0 0 0 3px rgba(74,197,144,.11); }
 .status-dot.is-paused { background: #e8aa46; box-shadow: 0 0 0 3px rgba(232,170,70,.13); }
 .statusbar-hint { display: flex; align-items: center; gap: 6px; color: #9aa2b5; font-size: 9px; white-space: nowrap; }
-kbd { padding: 3px 5px; border: 1px solid #e5e8f0; border-bottom-width: 2px; border-radius: 4px; color: #78829a; background: #fafbfe; font-family: inherit; font-size: 9px; font-weight: 700; }
+kbd { padding: 3px 5px; border: 1px solid #e5e8f0; border-bottom-width: 2px; border-radius: 4px; color: #78829a; background: #fafbfe; font-size: 9px; font-weight: 700; }
 .status-separator { color: #c4cad8; }
 .pause-button { display: flex; align-items: center; justify-content: center; gap: 6px; min-width: 94px; min-height: 35px; margin-left: auto; padding: 0 11px; border: 1px solid #e3e6f0; border-radius: 9px; color: #505c76; background: #fff; font-size: 10px; font-weight: 700; white-space: nowrap; }
 .pause-button:hover { border-color: #c7bfff; color: var(--violet-deep); }
