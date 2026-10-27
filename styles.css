@@ -15,13 +15,13 @@
   --coral: #fa806f;
   --sky: #55aaf4;
   --shadow: 0 10px 34px rgba(25, 34, 62, .055);
-  font-family: 'DM Sans', 'Segoe UI', sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 
 * { box-sizing: border-box; }
-html, body { min-height: 100%; margin: 0;   font-family: "Montserrat", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;}
+html, body { min-height: 100%; margin: 0;}
 body { background: var(--paper); color: var(--ink); }
 button, input, select { font: inherit; }
 button { cursor: pointer; }
