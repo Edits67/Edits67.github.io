@@ -21,7 +21,6 @@
 * { box-sizing: border-box; }
 html, body { min-height: 100%; margin: 0;   font-family: "Montserrat", sans-serif;
   font-optical-sizing: auto;
-  font-weight: <weight>;
   font-style: normal;}
 body { background: var(--paper); color: var(--ink); }
 button, input, select { font: inherit; }
