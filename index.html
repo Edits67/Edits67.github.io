@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101629">
+  <meta name="description" content="An interactive force and motion lab for students. Learn by pushing, pulling, and drawing force arrows.">
+  <title>Force Lab</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="language-screen" class="language-screen" aria-labelledby="language-title">
+    <div class="language-orbit orbit-one" aria-hidden="true"></div>
+    <div class="language-orbit orbit-two" aria-hidden="true"></div>
+    <section class="language-card">
+      <div class="brand-mark brand-mark-large" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="eyebrow" data-i18n="chooser.eyebrow">INTERACTIVE SCIENCE</p>
+      <h1 id="language-title" data-i18n="chooser.title">Choose your language</h1>
+      <p class="language-description" data-i18n="chooser.description">Pick a language to enter the force lab.</p>
+      <div class="language-options" role="group" data-i18n-aria="chooser.optionsLabel" aria-label="Language options">
+        <button class="language-option" type="button" data-language="en">
+          <span class="language-flag" aria-hidden="true">EN</span>
+          <span class="language-option-copy"><strong data-i18n="chooser.english">English</strong><small data-i18n="chooser.englishHint">Explore forces in English</small></span>
+          <span class="language-option-arrow" aria-hidden="true">↗</span>
+        </button>
+        <button class="language-option" type="button" data-language="tr">
+          <span class="language-flag flag-tr" aria-hidden="true">TR</span>
+          <span class="language-option-copy"><strong data-i18n="chooser.turkish">Türkçe</strong><small data-i18n="chooser.turkishHint">Kuvvetleri Türkçe keşfet</small></span>
+          <span class="language-option-arrow" aria-hidden="true">↗</span>
+        </button>
+      </div>
+      <p id="language-error" class="language-error" role="status" hidden></p>
+      <p class="language-footnote" data-i18n="chooser.footnote">You can switch languages any time inside the lab.</p>
+    </section>
+    <div class="language-bottom" data-i18n="chooser.footer">A little curiosity can move big things.</div>
+  </div>
+
+  <div id="app" class="app-shell is-hidden">
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="brand-text">
+          <div class="brand-title" data-i18n="site.title">Force Lab</div>
+          <div class="brand-subtitle" data-i18n="site.subtitle">Push it. Pull it. Understand it.</div>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <div class="live-pill"><span class="live-dot"></span><span data-i18n="site.interactive">INTERACTIVE LAB</span></div>
+        <div class="language-switch" role="group" data-i18n-aria="site.switchLanguageLabel" aria-label="Switch language">
+          <button type="button" data-set-language="en" class="language-switch-button">EN</button>
+          <button type="button" data-set-language="tr" class="language-switch-button">TR</button>
+        </div>
+        <button type="button" id="fullscreen-btn" class="icon-button" data-i18n-title="site.fullscreen" title="Toggle fullscreen" aria-label="Toggle fullscreen">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M21 16v5h-5M3 16v5h5" /></svg>
+        </button>
+        <button type="button" id="choose-language-btn" class="text-button" data-i18n="site.changeLanguage">Language</button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="simulation-column" data-i18n-aria="stage.simulationLabel" aria-label="Simulation">
+        <div class="simulation-heading">
+          <div>
+            <p class="eyebrow" data-i18n="stage.eyebrow">YOUR PLAYGROUND</p>
+            <h1 data-i18n="stage.title">Explore force and motion</h1>
+            <p class="simulation-subtitle" data-i18n="stage.description">Move the camera, choose a tool, and see what a push or pull can do.</p>
+          </div>
+          <button type="button" id="reset-experiment-btn" class="secondary-button reset-experiment-button">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 2.64-6.36L3 8m0-5v5h5" /></svg>
+            <span data-i18n="stage.resetExperiment">Reset experiment</span>
+          </button>
+        </div>
+
+        <div class="simulation-card">
+          <div class="tool-toolbar" role="toolbar" data-i18n-aria="tools.label" aria-label="Simulation tools">
+            <div class="tool-group">
+              <button type="button" class="tool-button is-active" data-tool="select" data-i18n-title="tools.selectHint" title="Select and move objects">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 3 14 11-7 1.2L9 22 5 3Z" /></svg>
+                <span data-i18n="tools.select">Select</span>
+              </button>
+              <button type="button" class="tool-button" data-tool="force" data-i18n-title="tools.forceHint" title="Draw a force arrow">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 19 5M10 5h9v9" /><path d="M4 14v6h6" /></svg>
+                <span data-i18n="tools.force">Draw force</span>
+              </button>
+              <button type="button" class="tool-button" data-tool="pan" data-i18n-title="tools.panHint" title="Move the camera">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2v20M2 12h20M12 2l-3 3m3-3 3 3M12 22l-3-3m3 3 3-3M2 12l3-3m-3 3 3 3M22 12l-3-3m3 3-3 3" /></svg>
+                <span data-i18n="tools.pan">Pan camera</span>
+              </button>
+            </div>
+            <div class="toolbar-divider"></div>
+            <button type="button" id="add-object-btn" class="add-object-button">
+              <span aria-hidden="true">＋</span><span data-i18n="tools.addObject">Add object</span>
+            </button>
+          </div>
+
+          <div class="stage-frame" id="stage-frame">
+            <canvas id="sim-canvas" tabindex="0" data-i18n-aria="stage.canvasLabel" aria-label="Interactive force and motion simulation. Use the toolbar to select an object, draw a force, or pan the camera."></canvas>
+            <div class="stage-top-left">
+              <div class="stage-chip"><span class="stage-chip-icon" aria-hidden="true">✦</span><span data-i18n="stage.liveView">LIVE WORLD</span></div>
+              <div id="selected-object-chip" class="selected-object-chip"><span class="selection-dot"></span><span id="selected-object-chip-text">Box selected</span></div>
+            </div>
+            <div class="stage-top-right">
+              <div class="compass-widget" data-i18n-aria="stage.compassLabel" aria-label="Compass">
+                <span class="compass-north">N</span><span class="compass-east">E</span><span class="compass-south">S</span><span class="compass-west">W</span>
+                <span class="compass-center"></span>
+              </div>
+              <div class="zoom-widget">
+                <button type="button" id="zoom-in-btn" data-i18n-title="stage.zoomIn" title="Zoom in" aria-label="Zoom in">＋</button>
+                <span id="zoom-label">100%</span>
+                <button type="button" id="zoom-out-btn" data-i18n-title="stage.zoomOut" title="Zoom out" aria-label="Zoom out">−</button>
+                <button type="button" id="reset-camera-btn" class="zoom-reset" data-i18n-title="stage.resetCamera" title="Reset camera" aria-label="Reset camera"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7V3m0 0h4M4 3l4 4M5 8a8 8 0 1 1-1 7" /></svg></button>
+              </div>
+            </div>
+            <div id="stage-tip" class="stage-tip"><span class="stage-tip-icon" aria-hidden="true">☝</span><span id="stage-tip-text" data-i18n="stage.tipSelect">Click an object to select it. Drag empty space to move the camera.</span></div>
+            <div class="stage-bottom-left">
+              <span class="coordinate-pill" id="coordinate-readout">x: 0 m · y: 0 m</span>
+              <span class="grid-pill"><span class="grid-pill-dot"></span><span data-i18n="stage.gridOn">Grid on</span></span>
+            </div>
+          </div>
+          <div class="simulation-statusbar">
+            <div class="simulation-status"><span id="status-dot" class="status-dot"></span><span id="simulation-status-text" data-i18n="status.running">Simulation running</span></div>
+            <div class="statusbar-hint"><kbd data-i18n="status.spaceKey">Space</kbd><span data-i18n="status.pauseHint">to pause / resume</span><span class="status-separator">·</span><span data-i18n="status.panHint">Scroll to zoom</span></div>
+            <button id="pause-btn" type="button" class="pause-button"><svg id="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14M16 5v14" /></svg><span id="pause-button-text" data-i18n="status.pause">Pause</span></button>
+          </div>
+        </div>
+
+        <div class="lesson-strip">
+          <div class="lesson-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3a7 7 0 0 0-4 12.74c.85.58 1.5 1.28 1.7 2.26h4.6c.2-.98.85-1.68 1.7-2.26A7 7 0 0 0 12 3ZM9.5 21h5M10 18h4" /></svg></div>
+          <div class="lesson-copy"><strong data-i18n="lesson.title">Think like a scientist</strong><p data-i18n="lesson.text">A force is a push or pull. Forces can speed things up, slow them down, or change their direction.</p></div>
+          <div class="lesson-tag" data-i18n="lesson.grade">GRADE 6 SCIENCE</div>
+        </div>
+      </section>
+
+      <aside class="control-sidebar" data-i18n-aria="controls.aria" aria-label="Force controls">
+        <section class="control-card force-control-card">
+          <div class="card-heading">
+            <div class="card-heading-icon force-heading-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20 19 5M10 5h9v9" /></svg></div>
+            <div><h2 data-i18n="controls.title">Force controls</h2><p data-i18n="controls.subtitle">Choose a direction and strength</p></div>
+          </div>
+
+          <div class="control-field">
+            <div class="field-label-row"><label for="object-select" data-i18n="controls.applyTo">Apply force to</label><span class="field-step" data-i18n="controls.step1">STEP 1</span></div>
+            <div class="select-wrap"><select id="object-select" data-i18n-aria="controls.selectedObjectLabel" aria-label="Selected object"></select><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 10 5 5 5-5" /></svg></div>
+          </div>
+
+          <div class="control-field">
+            <div class="field-label-row"><span class="field-label" data-i18n="controls.direction">Direction</span><span class="field-step" data-i18n="controls.step2">STEP 2</span></div>
+            <div class="direction-grid" role="group" data-i18n-aria="controls.directionLabel" aria-label="Force direction">
+              <button type="button" class="direction-button" data-direction="N"><span class="direction-arrow">↑</span><span data-i18n="direction.north">North</span></button>
+              <button type="button" class="direction-button is-active" data-direction="E"><span class="direction-arrow">→</span><span data-i18n="direction.east">East</span></button>
+              <button type="button" class="direction-button" data-direction="W"><span class="direction-arrow">←</span><span data-i18n="direction.west">West</span></button>
+              <button type="button" class="direction-button" data-direction="S"><span class="direction-arrow">↓</span><span data-i18n="direction.south">South</span></button>
+            </div>
+          </div>
+
+          <div class="control-field strength-field">
+            <div class="field-label-row"><label for="power-slider" data-i18n="controls.strength">Force strength</label><span class="field-step" data-i18n="controls.step3">STEP 3</span></div>
+            <div class="strength-value-row"><strong id="power-value">5</strong><span class="unit">N</span><span class="strength-caption" data-i18n="controls.newtons">newtons</span></div>
+            <input id="power-slider" type="range" min="1" max="20" step="1" value="5" data-i18n-aria="controls.powerLabel" aria-label="Force strength in newtons">
+            <div class="range-labels"><span>1 N</span><span>10 N</span><span>20 N</span></div>
+          </div>
+
+          <button type="button" id="apply-force-btn" class="primary-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 19 5M10 5h9v9" /></svg><span data-i18n="controls.applyForce">Apply force</span><span class="button-hotkey" aria-hidden="true">↗</span></button>
+          <button type="button" id="clear-forces-btn" class="clear-forces-button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3" /></svg><span data-i18n="controls.clearForces">Clear all forces</span></button>
+          <p class="control-note"><span aria-hidden="true">ⓘ</span><span data-i18n="controls.note">Forces keep acting until you clear them. Try equal forces in opposite directions.</span></p>
+        </section>
+
+        <section class="control-card results-card">
+          <div class="card-heading results-heading">
+            <div class="card-heading-icon results-heading-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h16M8 15l3-4 3 2 5-7" /></svg></div>
+            <div><h2 data-i18n="results.title">Live physics</h2><p data-i18n="results.subtitle">For the selected object</p></div>
+            <span class="live-mini"><span></span><span data-i18n="results.live">LIVE</span></span>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric-box"><span class="metric-label" data-i18n="results.netForce">Net force</span><div class="metric-value"><strong id="net-force-value">5.0</strong><span>N</span></div><div class="metric-subvalue" id="net-force-direction">East</div></div>
+            <div class="metric-box"><span class="metric-label" data-i18n="results.speed">Speed</span><div class="metric-value"><strong id="speed-value">0.0</strong><span>m/s</span></div><div class="metric-subvalue" data-i18n="results.speedSub">Movement rate</div></div>
+          </div>
+          <div class="force-list-heading"><span data-i18n="results.activeForces">Active forces</span><span id="force-count" class="force-count">1</span></div>
+          <div id="force-list" class="force-list"><div class="empty-forces" data-i18n="results.noForces">No forces applied yet.</div></div>
+        </section>
+
+        <section class="science-tip-card">
+          <div class="science-tip-header"><span class="science-tip-spark" aria-hidden="true">✦</span><strong data-i18n="science.title">Science challenge</strong></div>
+          <p data-i18n="science.text">Can you make the box stay still? Try adding the same force in opposite directions.</p>
+          <div class="science-tip-footer"><span data-i18n="science.tryIt">TRY IT OUT</span><span aria-hidden="true">↗</span></div>
+        </section>
+      </aside>
+    </main>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+</body>
+</html>

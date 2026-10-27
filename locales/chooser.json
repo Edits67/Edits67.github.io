@@ -1,0 +1,13 @@
+{
+  "chooser.eyebrow": "INTERACTIVE SCIENCE • ETKİLEŞİMLİ BİLİM",
+  "chooser.title": "Choose your language / Dilini seç",
+  "chooser.description": "Pick a language to enter the force lab. / Kuvvet laboratuvarına girmek için dil seç.",
+  "chooser.english": "English",
+  "chooser.englishHint": "Explore forces in English",
+  "chooser.turkish": "Türkçe",
+  "chooser.turkishHint": "Kuvvetleri Türkçe keşfet",
+  "chooser.footnote": "You can switch languages any time inside the lab. / Laboratuvarda dili istediğin zaman değiştirebilirsin.",
+  "chooser.footer": "A little curiosity can move big things. / Biraz merak, büyük şeyleri harekete geçirebilir.",
+  "chooser.loadError": "Could not load the language files. Make sure the locales folder is published alongside index.html. / Dil dosyaları yüklenemedi. locales klasörünün index.html ile birlikte yayımlandığından emin olun.",
+  "chooser.optionsLabel": "Language options / Dil seçenekleri"
+}
